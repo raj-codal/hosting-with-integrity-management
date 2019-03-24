@@ -15,7 +15,7 @@
    int maxFileSize = 5000 * 1024;
    int maxMemSize = 5000 * 1024;
    ServletContext context = pageContext.getServletContext();
-   String filePath = ServerFiles.upload_folder+user+"\\";
+   String filePath = ServerFiles.upload_folder+user+"A\\";
 
    // Verify the content type
    String contentType = request.getContentType();

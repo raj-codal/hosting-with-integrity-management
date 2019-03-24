@@ -3,7 +3,7 @@
 <%
   String user = "user1";
   ServerFiles files = new ServerFiles();
-  String f[] = files.getFileNames(ServerFiles.upload_folder+user+"\\");
+  String f[] = files.getFileNames(ServerFiles.upload_folder+user+"\\A\\");
   for(String obj : f){
       out.print(obj+",");
   }
