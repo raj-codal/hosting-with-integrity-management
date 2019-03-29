@@ -14,7 +14,7 @@ public class var{
    //public static int i=0;
    //public static String File_name[] = new String[10];
    public static Collection<String> File_name = new ArrayList<String>();
-    public static boolean possible(String A){
+    public static boolean possible(String A, String B){
        for(Iterator<String> i = File_name.iterator(); i.hasNext();)
        {
            if(((String)i.next()).equals(A)) 
@@ -23,13 +23,13 @@ public class var{
                return false;
            }
        }
-       File a=new File(ServerFiles.upload_folder + "user1" + "\\A\\"+A);
+       File a=new File(ServerFiles.upload_folder + B.trim() + "\\A\\"+A);
        if(a.exists()){
             File_name.add(A);
             return true;
        }
        else{
-            System.out.println("FILE DOES NOT EXIST!!!");
+            System.out.println("FILE DOES NOT EXIST!!!"+a.getAbsolutePath());
             return false;
        }
    }

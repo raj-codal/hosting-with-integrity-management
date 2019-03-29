@@ -6,7 +6,14 @@
 <%@page contentType="APPLICATION/JSON" pageEncoding="UTF-8"%>
 
 <%
-    String user = "user1";
+    session = request.getSession();
+
+    if(session.getAttribute("user")==null){
+        response.sendError(402);
+    }
+    
+    
+    String user = session.getAttribute("user").toString().trim();
     InputStream inStream = request.getInputStream();
     Scanner in = new Scanner(inStream);
     String flag = in.nextLine().trim();
@@ -16,8 +23,8 @@
         String files[] = folder.list();
         for (String x : files) {
             if (!x.contains("hash")) {
-                if (var.possible(x)) {
-                    new R3Sa(x);
+                if (var.possible(x,user)) {
+                    new R3Sa(x,user);
                 } else {
                     System.out.println("Aint gonna make it! for" + x);
                 }
@@ -25,12 +32,14 @@
         }
     }
     if (flag.equals("START")) {
-        FLAG.under_watch = true;
-        System.out.println("SYSTEM STARTED");
+//        FLAG.under_watch = true;
+        FLAG.under_watch.put(user, true);
+        System.out.println("SYSTEM STARTED FOR "+user);
         out.println("STOP");
     } else if (flag.equals("STOP")) {
-        FLAG.under_watch = false;
-        System.out.println("SYSTEM ON HALT");
+//        FLAG.under_watch = false;
+        FLAG.under_watch.put(user, false);
+        System.out.println(user+"'s SYSTEM ON HALT");
         out.println("START");
     }
 

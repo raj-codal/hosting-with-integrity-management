@@ -10,13 +10,23 @@
 
 
 <%
-   File file ;
-   String user = "user1";
+   session = request.getSession();
+
+    if(session.getAttribute("user")==null){
+        response.sendError(402);
+    }
+     
+    
+   File file, temp;
+   String user = session.getAttribute("user").toString().trim();
    int maxFileSize = 5000 * 1024;
    int maxMemSize = 5000 * 1024;
    ServletContext context = pageContext.getServletContext();
-   String filePath = ServerFiles.upload_folder+user+"A\\";
-
+   String filePath = ServerFiles.upload_folder+user+"\\A\\";
+   temp = new File(filePath);
+   if(!temp.exists()){
+       temp.mkdirs();
+   }
    // Verify the content type
    String contentType = request.getContentType();
    

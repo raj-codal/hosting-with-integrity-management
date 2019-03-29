@@ -12,6 +12,9 @@ function AJAX_BOOM() {
                 res.innerHTML += files[i] + ": <button class=\"download\" onclick=\"download.call(this)\" id=\"" + files[i] + "\">download</button>" + "<button class=\"delete\" onclick=\"del.call(this)\" id=\"" + files[i] + "\">delete</button><br>";
             }
         }
+        if(this.readyState === 4 && this.status === 402){
+            console.log('LOGIN!');
+        }
     };
     xmlhttp.open("POST", "http://localhost:8080/test/getfilenames.jsp", true);
     xmlhttp.send(f);
