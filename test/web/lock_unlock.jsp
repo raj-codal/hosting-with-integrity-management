@@ -19,7 +19,7 @@
     String flag = in.nextLine().trim();
     String filepath = ServerFiles.upload_folder + user + "\\A\\";
     File folder = new File(filepath);
-    if (flag.equals("START")) {
+    if (flag.equals("LOCK")) {
         String files[] = folder.list();
         for (String x : files) {
             if (!x.contains("hash")) {
@@ -31,16 +31,20 @@
             }
         }
     }
-    if (flag.equals("START")) {
+    if (flag.equals("LOCK")) {
 //        FLAG.under_watch = true;
         FLAG.under_watch.put(user, true);
         System.out.println("SYSTEM STARTED FOR "+user);
-        out.println("STOP");
-    } else if (flag.equals("STOP")) {
+        out.println("UNLOCK");
+    } else if (flag.equals("UNLOCK")) {
 //        FLAG.under_watch = false;
         FLAG.under_watch.put(user, false);
+//        File rdx = new File(ServerFiles.upload_folder + user + "\\B\\");
+//        rdx.delete();
+//        rdx = new File(ServerFiles.upload_folder + user + "\\C\\");
+//        rdx.delete();
         System.out.println(user+"'s SYSTEM ON HALT");
-        out.println("START");
+        out.println("LOCK");
     }
 
 %> 

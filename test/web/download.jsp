@@ -8,15 +8,21 @@
         response.sendError(402);
     }
      
-  
     
-  String user = "user1";
+  String user = session.getAttribute("user").toString().trim();
   String filename = request.getParameter("fileName");   
-  String filepath = ServerFiles.upload_folder+user+"\\";   
+  String filepath = ServerFiles.upload_folder+user+"\\A\\";   
   response.setHeader("Content-Disposition","attachment; filename=\"" + filename + "\"");   
-  java.io.FileInputStream fileInputStream=new java.io.FileInputStream(filepath + filename);  
+  java.io.File x = new java.io.File (filepath + filename);
+  if(!x.exists()){
+      System.out.println(filepath + filename);
+      out.println("file not found");
+      return;
+  }
+  java.io.FileInputStream fileInputStream=new java.io.FileInputStream (filepath + filename);  
+  System.out.println("user downloading:" + filename);
   int i;   
-  while ((i=fileInputStream.read()) != -1) {  
+  while ((i = fileInputStream.read()) != -1) {  
     out.write(i);   
   }   
   fileInputStream.close();   

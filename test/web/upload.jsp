@@ -1,3 +1,4 @@
+<%@page import="foxy_server_manager.Database"%>
 <%@page import="foxy_server_manager.ServerFiles"%>
 <%@ page import = "java.io.*,java.util.*, javax.servlet.*" %>
 <%@ page import = "javax.servlet.http.*" %>
@@ -15,7 +16,7 @@
     if(session.getAttribute("user")==null){
         response.sendError(402);
     }
-     
+   int id = Integer.parseInt(session.getAttribute("userId").toString());
     
    File file, temp;
    String user = session.getAttribute("user").toString().trim();
@@ -29,6 +30,9 @@
    }
    // Verify the content type
    String contentType = request.getContentType();
+   
+   Database db = new Database();
+   db.connect();
    
    if ((contentType.indexOf("multipart/form-data") >= 0)) {
       DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -69,6 +73,7 @@
                   fileName.substring(fileName.lastIndexOf("\\")+1)) ;
                }
                fi.write( file ) ;
+               db.uploadFile(file.getName(), id);
                out.println("200:"+fileName);
             }
          }
