@@ -1,0 +1,63 @@
+@media (min-width: 300px) {
+  .jumbotron {
+    background-image:url(../../assets/img/laptop.jpg);
+    background-position:center;
+    background-size:cover;
+    text-align:center;
+    height:250px;
+    border-radius:0px;
+  }
+}
+
+@media (min-width: 768px) {
+  .jumbotron {
+    height:400px;
+  }
+}
+
+.card-title {
+  text-align:center;
+}
+
+.round_border {
+  font-size:1.5em;
+  border-width:thick;
+  padding:0.5em;
+  border-color:#000;
+  border:solid;
+  border-radius:100%;
+}
+
+.card-text:last-child {
+  text-align:center;
+}
+
+.nav-item {
+}
+
+.nav-link.text-uppercase.text-white.bg-danger.active {
+  padding-right:20px;
+  padding-left:20px;
+}
+
+.navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show > .nav-link {
+  padding-right:20px;
+  padding-left:20px;
+  border-radius:25px;
+}
+
+#features_heading {
+  text-align:center;
+  margin-bottom:33px;
+}
+
+#features {
+  margin-bottom:30px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  margin-right:20px;
+  margin-right:20px;
+  text-align:center;
+}
+

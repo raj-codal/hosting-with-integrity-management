@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    </head>
+    <body>
+        <form name="form" id="form_1" method="post">
+            <p><input type = "text" id="name" name = "name" placeholder ="Name" /></p>
+            <p><input type = "text" id="email" name = "email" placeholder ="Email" /></p>
+            <p><input type = "password" id="password" name = "password" placeholder ="Password" /></p>
+            <br />
+        </form>
+        <button onclick="AJAX_BOOM()">SUBMIT</button>
+        <div id="res"></div>
+    <script>
+            function AJAX_BOOM() {
+                var name = document.getElementById("name").value;
+                var email = document.getElementById("email").value;
+                var password = document.getElementById("password").value;
+                
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        res = document.getElementById("res")//.innerHTML = myObj;
+                        res.innerHTML = "";
+                        res.innerHTML = this.responseText;
+                    }
+                };
+                xmlhttp.open("POST", "http://localhost:8080/test/register.jsp", true);
+                xmlhttp.send(name+'\n'+email+'\n'+password);
+                return false;
+            }
+
+        </script>
+    </body>
+</html>

@@ -11,6 +11,8 @@
   ServerFiles files = new ServerFiles();
   String f[] = files.getFileNames(ServerFiles.upload_folder+user+"\\A\\");
   for(String obj : f){
-      out.print(obj+",");
+      if(!obj.startsWith("hash") && !obj.endsWith(".hash")){
+        out.print(obj+",");    
+      }
   }
 %>
