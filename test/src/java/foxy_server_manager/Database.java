@@ -17,14 +17,17 @@ public class Database {
         }
     }
 
-    public static int registerUser(String name, String id, String email, String password) {
+    public static int registerUser(String name, String email, String password) {
         try {
             Statement stmt = con.createStatement();
             ResultSet r = stmt.executeQuery("SELECT id FROM `user` Where email='" + email + "'");
 //            r.next();
 //           r.next();
             if (r.next() == false) {
-                stmt.executeUpdate("INSERT INTO `user`(`name`, `email`, `id`, `password`) VALUES ('" + name + "','" + email + "','" + id + "','" + password + "')");
+                stmt.executeUpdate("INSERT INTO `user`(`name`, `email`, `password`) VALUES ('" + name + "','" + email + "','" + password + "')");
+                ResultSet id_set = stmt.executeQuery("SELECT id FROM user WHERE email='"+email+"';");
+                id_set.next();
+                stmt.executeUpdate("CREATE TABLE `hosting`.`user_"+id_set.getInt("id")+"` ( `files` VARCHAR(255) NOT NULL ) ENGINE = InnoDB;");
                 return 1;
             } else {
                 return 0;
@@ -33,6 +36,52 @@ public class Database {
             e.printStackTrace();
         }
         return -1;
+    }
+    public static int uploadFile(String filename,int id) {
+        try {
+            System.out.println("id:"+id);
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate("INSERT INTO `user_"+id+"` VALUES ('"+ filename +"')");
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+    public static int deleteFile(String filename,int id) {
+        try {
+            System.out.println("id:"+id);
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate("DELETE FROM `user_"+id+"` WHERE  files='"+ filename +"'");
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+    public static ResultSet searchFiles(int id) {
+        try {
+            System.out.println("id:"+id);
+            Statement stmt = con.createStatement();
+            ResultSet r = stmt.executeQuery("SELECT * FROM user_"+id+";");
+            return r;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public static String getId(String email){
+        try{
+            Statement stmt = con.createStatement();
+            ResultSet r =stmt.executeQuery("SELECT id FROM user WHERE email='"+email+"';");
+            r.next();
+            String id = Integer.toString(r.getInt("id"));
+            return id;
+        }
+        catch(Exception e){
+        }
+        return null;
     }
 
     public static String login(String email, String password) {
